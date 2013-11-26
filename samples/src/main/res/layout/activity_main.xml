@@ -1,7 +1,78 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/container"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    tools:ignore="MergeRootFrame" />
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/scrollview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/topText"/>
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/sampleOneText"/>
+
+        <com.indatus.swipecontrol.library.BackgroundContainer
+                android:id="@+id/sampleOne_background"
+                android:layout_width="match_parent"
+                android:layout_height="150dp">
+
+            <ImageView
+                    android:id="@+id/sampleOne_imgView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clickable="true"
+                    android:background="@drawable/sampleOne"
+                    android:scaleType="centerCrop"/>
+
+        </com.indatus.swipecontrol.library.BackgroundContainer>
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/sampleTwoText"/>
+
+        <com.indatus.swipecontrol.library.BackgroundContainer
+                android:id="@+id/sampleTwo_background"
+                android:layout_width="match_parent"
+                android:layout_height="150dp">
+
+            <ImageView
+                    android:id="@+id/sampleTwo_imgView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:clickable="true"
+                    android:background="@drawable/sampleTwo"/>
+
+        </com.indatus.swipecontrol.library.BackgroundContainer>
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/sampleThreeText"/>
+
+        <com.indatus.swipecontrol.library.BackgroundContainer
+                android:id="@+id/sampleThree_background"
+                android:layout_width="match_parent"
+                android:layout_height="150dp">
+
+            <ImageView
+                    android:id="@+id/sampleThree_imgView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:clickable="true"
+                    android:background="@drawable/sampleThree"/>
+
+        </com.indatus.swipecontrol.library.BackgroundContainer>
+
+    </LinearLayout>
+</ScrollView>

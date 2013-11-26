@@ -4,5 +4,9 @@
     <string name="app_name">My Module</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="topText">This is a sample of the options available with SwipeControl. Check out the activity_main.xml file for a clear understanding.</string>
+    <string name="sampleOneText">Here is an example that swipes BOTH right and left.</string>
+    <string name="sampleTwoText">The following is an exmaple that only swipes to the right.</string>
+    <string name="sampleThreeText">The following is an example that only swipes to the left.</string>
 
 </resources>

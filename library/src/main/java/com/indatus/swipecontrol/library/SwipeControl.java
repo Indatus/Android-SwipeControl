@@ -4,7 +4,6 @@ package com.indatus.swipecontrol.library;
 
 import android.content.Context;
 import android.os.Build;
-import android.os.Handler;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -23,7 +22,6 @@ public class SwipeControl {
 	private Context mContext;
 
 	private float mSwipeDistance;
-
 	private static final int SWIPE_DURATION = 350;
 
 	private OnSwipeListener mSwipeListener;
