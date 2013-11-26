@@ -5,6 +5,7 @@ package com.indatus.swipecontrol.library;
 import android.content.Context;
 import android.os.Build;
 import android.os.Handler;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
@@ -182,7 +183,6 @@ public class SwipeControl {
 
 				switch (event.getAction()) {
 					case MotionEvent.ACTION_DOWN: {
-
 						if (mItemPressed) {
 							// multi-item swipes not handled
 							return false;
@@ -193,7 +193,6 @@ public class SwipeControl {
 						break;
 					}
 					case MotionEvent.ACTION_CANCEL: {
-
 						v.setAlpha(1);
 						v.setTranslationX(0);
 						mItemPressed = false;
@@ -209,28 +208,27 @@ public class SwipeControl {
 						break;
 					}
 					case MotionEvent.ACTION_MOVE: {
-
 						float x = event.getX() + v.getTranslationX();
 						float deltaX = x - mDownX;
 						float deltaXAbs = Math.abs(deltaX);
 
 						if (!mSwiping) {
-
 							if (deltaXAbs > mSwipeSlop) {
 								mSwiping = true;
 
 								v.getParent().requestDisallowInterceptTouchEvent(true);
+
 								try {
 									mSwipeListener.onSwipeStarted(v);
 								}
 								catch (NullPointerException e) {
 									e.printStackTrace();
+									Log.e(TAG, "Please implement the OnSwipeListener interface.");
 								}
 							}
 						}
 
 						if (mSwiping) {
-
 							try {
 								if (mRightSwipeEnabled && deltaX > 0) {
 									v.setTranslationX(deltaX);
@@ -242,6 +240,7 @@ public class SwipeControl {
 							}
 							catch (NullPointerException e) {
 								e.printStackTrace();
+								Log.e(TAG, "Please implement the OnSwipeListener interface.");
 							}
 
 							if (mFadeOutEnabled) {
@@ -268,19 +267,13 @@ public class SwipeControl {
 								fractionCovered = deltaXAbs / v.getWidth();
 								endX = (x - mDownX) < 0 ? -v.getWidth() : v.getWidth();
 								endAlpha = 0;
-
-								if ((mRightSwipeEnabled && deltaX > 0) || (mLeftSwipeEnabled && deltaX < 0)) {
-									completed = true;
-								} else {
-									completed = false;
-								}
+								completed = (mRightSwipeEnabled && deltaX > 0) || (mLeftSwipeEnabled && deltaX < 0);
 							} else {
 								// wasn't moved far enough, move it back
 								fractionCovered = 1 - (deltaXAbs / v.getWidth());
 								endX = 0;
 								endAlpha = 1;
 								completed = false;
-
 							}
 
 							try {
@@ -288,24 +281,15 @@ public class SwipeControl {
 							}
 							catch (NullPointerException e) {
 								e.printStackTrace();
+								Log.e(TAG, "Please implement the OnSwipeListener interface before using.");
 							}
-							// Animate the position and alpha of swiped item
-							// NOTE: This is a simplified version of swipe behavior, for the purposes of this demo about animation. A real version should use
-							// velocity (via VelocityTracker class)
-							// to send the item off or back at an appropriate speed.
 
 							long duration = (int) (Math.abs(1 - fractionCovered) * SWIPE_DURATION);
 
-							final boolean swipingRight;
-
-							if (deltaX > 0) {
-								swipingRight = true;
-							} else {
-								swipingRight = false;
-							}
+							final boolean swipingRight = deltaX > 0;
 
 							if ((mRightSwipeEnabled && deltaX > 0) || (mLeftSwipeEnabled && deltaX < 0)) {
-								if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN) {
+								if (Build.VERSION.SDK_INT > Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
 									v.animate().setDuration(duration).alpha(endAlpha).translationX(endX).withEndAction(new Runnable() {
 										@Override
 										public void run() {
@@ -327,31 +311,8 @@ public class SwipeControl {
 											}
 										}
 									});
-								} else { // TODO: this should probably be tested much more thoroughly... I'm just hoping this works
-									v.animate().setDuration(duration).alpha(endAlpha).translationX(endX);
-
-									Handler handler = new Handler();
-									handler.postDelayed(new Runnable() {
-										@Override
-										public void run() {
-											// restore animated values
-											v.setAlpha(1);
-											v.setTranslationX(0);
-
-											try {
-												if (completed) {
-													if (swipingRight) {
-														mSwipeListener.onSwipeRightFinished(v, 0);
-													} else {
-														mSwipeListener.onSwipeLeftFinished(v, 0);
-													}
-												}
-											}
-											catch (NullPointerException e) {
-												e.printStackTrace();
-											}
-										}
-									}, duration);
+								} else {
+									Log.w(TAG, "This library is fully compatible with only Android API 16+, so there may be issues with this.");
 								}
 							}
 
