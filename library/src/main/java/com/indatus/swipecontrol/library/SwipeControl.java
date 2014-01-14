@@ -167,7 +167,7 @@ public class SwipeControl {
 	 * 
 	 * @return a new instance of the View.OnTouchListener
 	 */
-	public View.OnTouchListener getTouchListener() {
+	public View.OnTouchListener buildTouchListener() {
 		return new View.OnTouchListener() {
 
 			float mDownX;
