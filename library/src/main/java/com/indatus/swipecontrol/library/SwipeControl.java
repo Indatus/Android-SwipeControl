@@ -231,18 +231,22 @@ public class SwipeControl {
 								if (mRightSwipeEnabled && deltaX > 0) {
 									v.setTranslationX(deltaX);
 									mSwipeListener.onSwipeRight(v, deltaXAbs);
+
+									if (mFadeOutEnabled) {
+										v.setAlpha(1 - deltaXAbs / v.getWidth());
+									}
 								} else if (mLeftSwipeEnabled && deltaX < 0) {
 									v.setTranslationX(deltaX);
 									mSwipeListener.onSwipeLeft(v, deltaXAbs);
+
+									if (mFadeOutEnabled) {
+										v.setAlpha(1 - deltaXAbs / v.getWidth());
+									}
 								}
 							}
 							catch (NullPointerException e) {
 								e.printStackTrace();
 								Log.e(TAG, "Please implement the OnSwipeListener interface.");
-							}
-
-							if (mFadeOutEnabled) {
-								v.setAlpha(1 - deltaXAbs / v.getWidth());
 							}
 						}
 
