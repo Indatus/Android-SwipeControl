@@ -8,7 +8,7 @@ The latest SNAPSHOT can be found [here](https://oss.sonatype.org/content/reposit
 
 ## Importing Using Android Studio and Gradle
 
-Using Gradle is the easiest way to incorporate this into your project. Add the following lines inside your `build.gradle` after importing the as a module:
+Using Gradle is the easiest way to incorporate this into your project. Add the following lines inside your `build.gradle` after importing this as a module:
 
 ````
 dependencies {
